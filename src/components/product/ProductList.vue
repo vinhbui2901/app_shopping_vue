@@ -3,7 +3,7 @@
     <h2 class="text-center text-danger font-weight-bold">Các sản phẩm nổi bật</h2>
     <div class="row">
         <div v-for="(item, index) in listProduct" class="col-lg-3" :key="index">
-            <product-item :proItem="item"/>
+            <product-item :proItem="item" @hanlde-buy-product-item="hanldeBuy"/>
         </div>
     </div>
   </section>
@@ -72,6 +72,11 @@ export default {
                 }
             ]
         };
+    },
+    methods:{
+        hanldeBuy(productItem){
+          this.$emit('hanlde-buy-product-item', productItem);
+        },
     },
     components:{
         ProductItem,

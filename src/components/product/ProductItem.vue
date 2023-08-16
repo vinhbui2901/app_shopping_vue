@@ -5,7 +5,7 @@
       <h4 class="card-title">{{proItem.title}}</h4>
       <p class="card-text text-danger">{{proItem.pirce}} VND</p>
       <div class="row">
-        <button class="col btn btn-danger mx-2">Mua</button>
+        <button class="col btn btn-danger mx-2" @click="hanldeBuyItem(proItem)">Mua</button>
         <button class="col btn btn-info mx-2">Chi tiết</button>
       </div>
     </div>
@@ -18,8 +18,12 @@ export default {
         proItem:{
             type: Object,
         }
-    }
-
+    },
+    methods:{
+        hanldeBuyItem(item){
+            this.$emit('hanlde-buy-product-item', item);
+        }
+    },
 }
 </script>
 

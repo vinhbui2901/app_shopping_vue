@@ -33,21 +33,62 @@
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <div class="ml-2">
-                <button class="btn btn-danger">
+                <button class="btn btn-danger" @click="handleOpenModalCartList">
                     <i class="fa fa-shopping-cart"></i>
-                <span class="badge badge-light ml-2">0</span>
+                <span class="badge badge-light ml-2">{{totalItem}}</span>
                 </button>
             </div>
           </div>
         <!-- </div> -->
       </nav>
-      <app-modal/>
+      <teleport to='#app'>
+        <app-modal :isOpen="isOpenModalCartList" :handleCloseModal="handleCloseModalCartList">
+            <section>
+                <cart-list-modal :cartListBuy="cartListBuy" @hanled-delete-cart="hanledDelete" @handle-up-or-down-cart="handleUpOrDownCart"/>
+            </section>
+           
+        </app-modal>
+      </teleport>
+      
 </template>
 
 <script>
 import AppModal from '../app_modal/AppModal.vue'
+import CartListModal from '../app_modal/CartListModal.vue';
 export default {
-  components: { AppModal },
+  data(){
+    return{
+        isOpenModalCartList: false,
+    };
+  },
+  props:{
+    cartListBuy:{
+        type: Array,
+    }
+  },
+  computed: {
+    totalItem(){
+      return this.cartListBuy.reduce((total, cart)=> (total += cart.amount), 0)
+    }
+  },
+  methods:{
+    hanledDelete(cart){
+     this.$emit('hanled-delete-cart', cart);
+    },
+    handleOpenModalCartList(){
+       this.isOpenModalCartList = true;
+    },
+    handleCloseModalCartList(){
+        this.isOpenModalCartList = false;
+    },
+    handleUpOrDownCart(params){
+        this.$emit('handle-up-or-down-cart', params);
+    },
+  },
+  components: { 
+    AppModal,
+    CartListModal,
+},
 
 }
 </script>
