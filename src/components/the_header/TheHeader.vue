@@ -46,7 +46,6 @@
             <section>
                 <cart-list-modal :cartListBuy="cartListBuy" @hanled-delete-cart="hanledDelete" @handle-up-or-down-cart="handleUpOrDownCart"/>
             </section>
-           
         </app-modal>
       </teleport>
       
@@ -59,6 +58,7 @@ export default {
   data(){
     return{
         isOpenModalCartList: false,
+        isOpenModalProductDetail: false,
     };
   },
   props:{
